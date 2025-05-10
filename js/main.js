@@ -13,6 +13,7 @@ import { setupInfoDisplay, updateInfoPanel } from './infoDisplay.js';
 import { animateBlackHole } from './animationManager.js'; // Keep animateBlackHole
 // --- END REMOVE STAR ANIMATION IMPORT ---
 import { setupGUI } from './guiManager.js';
+import { setupGraphCanvas, drawLensingGraph, handleGraphResize, toggleGraphVisibility } from './graphManager.js';
 
 // --- Global Parameters ---
 const PARAMS = {
@@ -50,6 +51,7 @@ const PARAMS = {
     bloomStrength: 0.5,
     bloomRadius: 0.4,
     bloomThreshold: 0.85,
+    showLensingGraph: true, // Added for graph visibility
 };
 
 // --- Global State ---
@@ -65,6 +67,7 @@ let composer;
 let bloomPass;
 let clock = new THREE.Clock();
 let gui;
+let lensingGraphCanvas; // Added for graph canvas
 let lastFrameTime = 0;
 let fps = 0;
 
@@ -105,6 +108,14 @@ async function init() {
     // 6. GUI
     gui = setupGUI(PARAMS, blackHoleMesh);
 
+    // 7. Graph Canvas Setup
+    lensingGraphCanvas = setupGraphCanvas(PARAMS);
+    if (gui && lensingGraphCanvas) {
+        gui.add(PARAMS, 'showLensingGraph').name('Show Lensing Graph').onChange((value) => {
+            toggleGraphVisibility(value);
+        });
+    }
+
     // Event Listeners
     window.addEventListener('resize', onWindowResize, false);
 
@@ -123,6 +134,7 @@ function onWindowResize() {
     if (lensingMaterial) {
         lensingMaterial.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
     }
+    handleGraphResize(); // Added for graph resize
 }
 
 function updateGameLogic(elapsedTime, deltaTime) {
@@ -147,6 +159,10 @@ function updateGameLogic(elapsedTime, deltaTime) {
         bloomPass.strength = PARAMS.bloomStrength;
         bloomPass.radius = PARAMS.bloomRadius;
         bloomPass.threshold = PARAMS.bloomThreshold;
+    }
+
+    if (lensingGraphCanvas && PARAMS.showLensingGraph) {
+        drawLensingGraph(PARAMS, blackHoleMesh.position, camera, renderer.getSize(new THREE.Vector2()));
     }
 }
 
