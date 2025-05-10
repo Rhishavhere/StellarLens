@@ -7,6 +7,7 @@
   <img src="textures/example.png" alt="Sample Lensing Graph" width="500"/>
 </p>
 
+
 *Sample: Light rays bending around a black hole, with lensing graph overlay.*
 
 ---
@@ -14,8 +15,9 @@
 ## 🔬 Scientific Background
 
 ### Schwarzschild Metric and Gravitational Lensing
-
+`
 The Schwarzschild metric describes the spacetime geometry around a non-rotating, spherically symmetric mass such as a black hole. In Schwarzschild coordinates, the line element is:
+`
 
 $$
 ds^2 = -\left(1-\frac{2GM}{rc^2}\right)c^2dt^2 + \left(1-\frac{2GM}{rc^2}\right)^{-1}dr^2 + r^2(d\theta^2 + \sin^2\theta d\phi^2)
@@ -79,7 +81,7 @@ The project combines the Schwarzschild metric, Einstein's deflection formula, an
 
 ```bash
 # Clone the repository
-git clone [repository-url]
+git clone https://github.com/Rhishavhere/StellarLens.git
 
 # Navigate to project directory
 cd StellarLens
