@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gravitational Lensing Visualizer</title>
+    <title>Gravitational Lensing Visualizer - Technical</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="info">
-        Gravitational Lensing Visualizer<br>
-        Drag to orbit. Scroll to zoom.
+    <div id="info-panel">
+        <!-- Info will be populated by JavaScript -->
     </div>
+    <div id="gui-container"></div> <!-- For lil-gui -->
+
+    <canvas id="lensing-graph-canvas"></canvas> <!-- New Canvas for the graph -->
+
     <script type="importmap">
         {
             "imports": {
@@ -19,6 +22,6 @@
             }
         }
     </script>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
